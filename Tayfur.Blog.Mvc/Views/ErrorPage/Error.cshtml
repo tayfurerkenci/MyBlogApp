@@ -1,0 +1,18 @@
+﻿@model Tayfur.Blog.Service.ViewModels.ErrorViewModel
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h1 class="bg-danger">@Model.StatusCode</h1>
+    <p>
+        @Model.StatusDescription
+    </p>
+    <p>
+        @Model.Message
+    </p>
+    <p>
+        @Model.DateTime
+    </p>
+</div>
+

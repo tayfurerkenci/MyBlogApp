@@ -1,0 +1,89 @@
+﻿@using Tayfur.Blog.Service.ViewModels
+@model IEnumerable<CategoryViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container mt-3">
+    <h1 class="text-center bg-warning">Kategoriler</h1>
+
+
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.ActionLink("Yeni Kategori", "Create", "Category", new { @class = "btn btn-info" })
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{
+                        string parameterValue = null;
+                        if (item.CategoryName.Length > 25)
+                        {
+                            parameterValue = item.CategoryName.ToString().Substring(0, 25) + "...";
+
+                        }
+                        else
+                        {
+                            parameterValue = item.CategoryName;
+                        }
+                    }
+                    @Html.DisplayFor(modelItem => parameterValue)
+                </td>
+                <td>
+                    @{
+                        parameterValue = null;
+                        if (item.Description.Length > 25)
+                        {
+                            parameterValue = item.Description.ToString().Substring(0, 25) + "...";
+
+                        }
+                        else
+                        {
+                            parameterValue = item.Description;
+                        }
+                    }
+                    @Html.DisplayFor(modelItem => parameterValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDeleted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @*@{
+            string name = item.Admin.FirstName + " " + item.Admin.LastName;
+        }
+        @Html.DisplayFor(modelItem => name)*@
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <td>
+                    @Html.ActionLink("Düzenle", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Detay", "Details", new { id = item.Id }, new { @class = "btn btn-secondary" })
+                    @Html.ActionLink("Sil", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

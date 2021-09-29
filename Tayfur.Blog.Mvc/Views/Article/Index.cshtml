@@ -1,0 +1,88 @@
+﻿@using Tayfur.Blog.Service.ViewModels
+@model IEnumerable<ArticleCategoryAdminViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container mt-3">
+    <h1 class="text-center bg-warning">Makaleler</h1>
+
+    <table class="table table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Category.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article.Context)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article.CreatedBy)
+            </th>
+            <th>
+                @Html.ActionLink("Yeni Makale", "Create", "Article", new { @class = "btn btn-info" })
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    @{
+                        string parameterValue = null;
+                        if (item.Article.Title.Length > 25)
+                        {
+                            parameterValue = item.Article.Title.ToString().Substring(0, 25) + "...";
+
+                        }
+                        else
+                        {
+                            parameterValue = item.Article.Title;
+                        }
+                    }
+                    @Html.DisplayFor(modelItem => parameterValue)
+                </td>
+                <td>
+                    @{
+                        parameterValue = string.Empty;
+                        if (item.Article.Context.Length > 20)
+                        {
+                            parameterValue = item.Article.Context.ToString().Substring(0, 20) + "...";
+
+                        }
+                        else
+                        {
+                            parameterValue = item.Article.Context;
+                        }
+                    }
+                    @Html.DisplayFor(modelItem => parameterValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Article.CreatedDate)
+                </td>
+                <td>
+                    @{
+                        string name = item.Admin.FirstName + " " + item.Admin.LastName;
+                    }
+                    @Html.DisplayFor(modelItem => name)
+                </td>
+                <td>
+                    @Html.ActionLink("Düzenle", "Edit", new { id = item.Article.Id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Detay", "Details", new { id = item.Article.Id }, new { @class = "btn btn-secondary" })
+                    @Html.ActionLink("Sil", "Delete", new { id = item.Article.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+

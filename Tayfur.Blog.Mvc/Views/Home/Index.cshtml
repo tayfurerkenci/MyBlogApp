@@ -1,0 +1,52 @@
+﻿@using Tayfur.Blog.Service.ViewModels
+@using PagedList
+@using PagedList.Mvc
+@model IEnumerable<ArticleCategoryAdminViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+@section pageHeader{
+    <!-- Page Header-->
+    <header class="masthead" style="background-image: url('../../assets/img/home-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Tayfur'un Blogu</h1>
+                        <span class="subheading">Bir takım makaleler içeren ilginç olmayan bir blog.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+}
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
+            @foreach (var item in Model)
+            {
+                <div class="post-preview">
+                    <a href="/Home/ArticleDetails/@item.Article.Id">
+                        <h3 class="post-title">@item.Article.Title</h3>
+
+                    </a>
+                    <p class="post-subtitle">
+                        @Html.Raw(item.Article.Context)
+                    </p>
+                    <p class="post-meta">
+                        <a href="/Home/About">@(item.Admin.FirstName+" "+item.Admin.LastName)</a> tarafından
+                        @item.Article.CreatedDate.ToString("MMMM dd, yyyy HH:mm") tarihinde yazılmıştır.
+                    </p>
+                </div>
+                <!-- Divider-->
+                <hr class="my-4" />
+            }
+            <!-- Pager-->
+          
+            @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", "Home", new { page }), new PagedListRenderOptions { LinkToFirstPageFormat = "<< İlk", LinkToPreviousPageFormat = "< Önceki", LinkToNextPageFormat = "Sonraki >", LinkToLastPageFormat = "Son >>" })
+            @*<div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="/Home/GetAllArticles">Makalelerimin Tümü →</a></div>*@
+        </div>
+    </div>
+</div>

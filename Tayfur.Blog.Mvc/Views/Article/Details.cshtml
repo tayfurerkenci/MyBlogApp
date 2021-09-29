@@ -1,0 +1,77 @@
+﻿@using Tayfur.Blog.Service.ViewModels
+@model ArticleCategoryAdminViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Makale Detayı</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.Context)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.Context)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.ModifiedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.ModifiedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.CreatedBy)
+        </dt>
+
+        <dd>
+            @{
+                string name = Model.Admin.FirstName + " " + Model.Admin.LastName;
+            }
+            @Html.DisplayFor(model => name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.ModifiedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.ModifiedBy)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Düzenle", "Edit", new { id = Model.Article.Id }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Makale Listesi", "Index")
+</p>
